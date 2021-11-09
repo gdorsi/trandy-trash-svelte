@@ -4,6 +4,7 @@
 	import { sineIn } from 'svelte/easing';
 	import { fly, fade } from 'svelte/transition';
 	import { tweened } from 'svelte/motion';
+	import { timer } from '$lib/timer';
 
 	const GRID_SIZE = 8;
 
@@ -11,6 +12,7 @@
 	let selected = null;
 	let validMoves = [];
 	let score = 0;
+
 	const displayedScore = tweened();
 
 	$: displayedScore.set(score);
@@ -60,6 +62,10 @@
 	}
 
 	function handleClick(i) {
+		if (!$timer) {
+			return;
+		}
+
 		if (selected !== null) {
 			if (validMoves.includes(i)) {
 				[grid[i], grid[selected]] = [grid[selected], grid[i]];
@@ -90,7 +96,18 @@
 	<title>Trendy Trash</title>
 </svelte:head>
 
-<h2>Score: <span class="bulletin">{Math.floor($displayedScore)}</span></h2>
+<h2>
+	{#if $timer}
+		Score: <span class="bulletin">{Math.floor($displayedScore)}</span> Timer:
+		<span class="bulletin">{$timer}</span>
+	{:else if $displayedScore}
+		Last Score: <span class="bulletin">{Math.floor($displayedScore)}</span>
+		<button on:click={timer.start}>Start</button>
+	{:else}
+		<button on:click={timer.start}>Start</button>
+	{/if}
+</h2>
+
 <div class="grid" style="--size: {GRID_SIZE}">
 	{#each grid as item, i (item)}
 		<div
