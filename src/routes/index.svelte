@@ -1,11 +1,8 @@
-<script context="module">
-	export const prerender = true;
-</script>
-
 <script>
 	import { generateGrid, getCombos, getRandomTrash } from '$lib/game';
 	import { flip } from 'svelte/animate';
-	import { fade } from 'svelte/transition';
+	import { sineIn } from 'svelte/easing';
+	import { fly, fade } from 'svelte/transition';
 	import { tweened } from 'svelte/motion';
 
 	const GRID_SIZE = 8;
@@ -75,6 +72,18 @@
 			selected = i;
 		}
 	}
+
+	function isNotValid(i) {
+		return Boolean(validMoves.length) && !validMoves.includes(i);
+	}
+
+	function flyDistance(i) {
+		return (600 / GRID_SIZE) * (Math.floor(i / GRID_SIZE) + 1);
+	}
+
+	function animationDuration(d) {
+		return Math.sqrt(d) * 30;
+	}
 </script>
 
 <svelte:head>
@@ -85,14 +94,14 @@
 <div class="grid" style="--size: {GRID_SIZE}">
 	{#each grid as item, i (item)}
 		<div
-			class={selected === i
-				? 'selected'
-				: Boolean(validMoves.length) && !validMoves.includes(i)
-				? 'not-valid-move'
-				: ''}
+			class={selected === i ? 'selected' : isNotValid(i) ? 'not-valid-move' : ''}
 			on:click={() => handleClick(i)}
-			animate:flip
-			in:fade
+			animate:flip={{ easing: sineIn, duration: animationDuration }}
+			in:fly={{
+				easing: sineIn,
+				y: flyDistance(i) * -1,
+				duration: animationDuration(flyDistance(i))
+			}}
 			out:fade
 		>
 			{item.value}
@@ -114,8 +123,8 @@
 
 	.bulletin {
 		display: inline-block;
-		background-color: #FFFAE2;
-		padding: .5em;
+		background-color: #fffae2;
+		padding: 0.5em;
 		text-align: center;
 		border-radius: 5px;
 	}
