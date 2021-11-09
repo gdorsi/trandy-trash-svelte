@@ -3,16 +3,15 @@
 </script>
 
 <main>
-	<h1>Trendy Trash</h1>
+	<h1>✨ Trendy Trash ✨</h1>
 	<slot />
 </main>
 
 <style>
 	main {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
+		display: grid;
+		grid-template-rows: 1fr 1fr max-content 1fr 1fr;
+		place-items: center;
 		height: 100vh;
 	}
 </style>

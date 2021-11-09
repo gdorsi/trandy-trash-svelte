@@ -6,7 +6,7 @@
 	import { generateGrid, getCombos, getRandomTrash } from '$lib/game';
 	import { flip } from 'svelte/animate';
 	import { fade } from 'svelte/transition';
-	import { spring } from 'svelte/motion';
+	import { tweened } from 'svelte/motion';
 
 	const GRID_SIZE = 8;
 
@@ -14,7 +14,7 @@
 	let selected = null;
 	let validMoves = [];
 	let score = 0;
-	const displayedScore = spring();
+	const displayedScore = tweened();
 
 	$: displayedScore.set(score);
 
@@ -78,10 +78,10 @@
 </script>
 
 <svelte:head>
-	<title>Trandy Trash</title>
+	<title>Trendy Trash</title>
 </svelte:head>
 
-<h2>Score: {Math.floor($displayedScore)}</h2>
+<h2>Score: <span class="bulletin">{Math.floor($displayedScore)}</span></h2>
 <div class="grid" style="--size: {GRID_SIZE}">
 	{#each grid as item, i (item)}
 		<div
@@ -101,6 +101,25 @@
 </div>
 
 <style>
+	h2 {
+		font-weight: bold;
+		font-family: var(--font-mono);
+		text-transform: uppercase;
+		font-size: 28px;
+		background-color: #0000003d;
+		padding: 16px;
+		border-radius: 5px;
+		box-shadow: 1px 1px #00000078;
+	}
+
+	.bulletin {
+		display: inline-block;
+		background-color: #FFFAE2;
+		padding: .5em;
+		text-align: center;
+		border-radius: 5px;
+	}
+
 	.grid {
 		display: grid;
 		grid-template-columns: repeat(var(--size), 1fr);
@@ -108,8 +127,20 @@
 		width: 400px;
 		height: 400px;
 		user-select: none;
+		text-align: center;
 		place-items: center;
-		font-size: 36px;
+		font-size: 34px;
+		border-radius: 5px;
+		background-color: #0000003d;
+		gap: 2px;
+		text-shadow: 2px 2px #00000078;
+		box-shadow: 2px 2px #00000078;
+	}
+
+	.grid > div {
+		height: 100%;
+		width: 100%;
+		border-radius: 2px;
 	}
 
 	.not-valid-move {
