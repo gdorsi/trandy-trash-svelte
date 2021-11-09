@@ -6,45 +6,59 @@
 	import { generateGrid, getCombos, getRandomTrash } from '$lib/game';
 	import { flip } from 'svelte/animate';
 	import { fade } from 'svelte/transition';
+	import { spring } from 'svelte/motion';
 
-	const grid = generateGrid(8);
+	const GRID_SIZE = 8;
+
+	const grid = generateGrid(GRID_SIZE);
 	let selected = null;
 	let validMoves = [];
+	let score = 0;
+	const displayedScore = spring();
+
+	$: displayedScore.set(score);
 
 	$: if (selected !== null) {
-		validMoves = [selected - 8, selected + 8];
+		validMoves = [selected - GRID_SIZE, selected + GRID_SIZE];
 
-		const selectedRow = Math.floor(selected / 8);
+		const selectedRow = Math.floor(selected / GRID_SIZE);
 
-		if (selectedRow === Math.floor((selected - 1) / 8)) {
+		if (selectedRow === Math.floor((selected - 1) / GRID_SIZE)) {
 			validMoves.push(selected - 1);
 		}
 
-		if (selectedRow === Math.floor((selected + 1) / 8)) {
+		if (selectedRow === Math.floor((selected + 1) / GRID_SIZE)) {
 			validMoves.push(selected + 1);
 		}
 	} else {
 		validMoves = [];
 	}
 
+	let streak = 1;
+
 	function processCombos() {
-		const combos = getCombos(grid, 8);
+		const combos = getCombos(grid, GRID_SIZE);
 
 		for (let combo of combos) {
+			score += combo.size * streak * combos.length;
+
 			for (let i of combo) {
 				let j = i;
 
 				while (j > 7) {
-					[grid[j], grid[j - 8]] = [grid[j - 8], grid[j]];
-					j -= 8;
+					[grid[j], grid[j - GRID_SIZE]] = [grid[j - GRID_SIZE], grid[j]];
+					j -= GRID_SIZE;
 				}
 
-				grid[i % 8] = getRandomTrash();
+				grid[i % GRID_SIZE] = getRandomTrash();
 			}
 		}
 
-		if (getCombos(grid, 8).length) {
+		if (getCombos(grid, GRID_SIZE).length) {
+			streak++;
 			setTimeout(processCombos, 500);
+		} else {
+			streak = 1;
 		}
 	}
 
@@ -54,7 +68,7 @@
 				[grid[i], grid[selected]] = [grid[selected], grid[i]];
 			}
 
-			processCombos();
+			setTimeout(processCombos, 500);
 
 			selected = null;
 		} else {
@@ -67,12 +81,15 @@
 	<title>Trandy Trash</title>
 </svelte:head>
 
-<div class="grid">
-	{#each grid as item, i (item.id)}
+<h2>Score: {Math.floor($displayedScore)}</h2>
+<div class="grid" style="--size: {GRID_SIZE}">
+	{#each grid as item, i (item)}
 		<div
-			class="{selected === i && 'selected'} {Boolean(validMoves.length) &&
-				!validMoves.includes(i) &&
-				'not-valid-move'}"
+			class={selected === i
+				? 'selected'
+				: Boolean(validMoves.length) && !validMoves.includes(i)
+				? 'not-valid-move'
+				: ''}
 			on:click={() => handleClick(i)}
 			animate:flip
 			in:fade
@@ -86,8 +103,8 @@
 <style>
 	.grid {
 		display: grid;
-		grid-template-columns: repeat(8, 1fr);
-		grid-template-rows: repeat(8, 1fr);
+		grid-template-columns: repeat(var(--size), 1fr);
+		grid-template-rows: repeat(var(--size), 1fr);
 		width: 400px;
 		height: 400px;
 		user-select: none;

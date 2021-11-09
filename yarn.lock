@@ -81,22 +81,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lukeed/csprng@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "@lukeed/csprng@npm:1.0.0"
-  checksum: 331cdeb48f716c5d905d1ff7c0df36ff2cc294bce7e266196d75d130609685d6d37f6f8ac683b4c9bfa6a98cd4884f4e974e810a11c291d98b4af4eefa15c3b5
-  languageName: node
-  linkType: hard
-
-"@lukeed/uuid@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "@lukeed/uuid@npm:2.0.0"
-  dependencies:
-    "@lukeed/csprng": ^1.0.0
-  checksum: 7d55c0a9f26db9f63728db46f74948cf539f2690556cb30a9b21eb86d7ef48f184d4bfe808975e22fba0f493f5742f1e9adf97af9efe456049a6f82be83c71f6
-  languageName: node
-  linkType: hard
-
 "@npmcli/fs@npm:^1.0.0":
   version: 1.0.0
   resolution: "@npmcli/fs@npm:1.0.0"
@@ -2100,7 +2084,6 @@ __metadata:
   resolution: "trandy-trash@workspace:."
   dependencies:
     "@fontsource/fira-mono": ^4.5.0
-    "@lukeed/uuid": ^2.0.0
     "@sveltejs/kit": next
     cookie: ^0.4.1
     eslint: ^7.32.0
@@ -2109,7 +2092,6 @@ __metadata:
     prettier: ^2.4.1
     prettier-plugin-svelte: ^2.4.0
     svelte: ^3.34.0
-    uid: ^2.0.0
   languageName: unknown
   linkType: soft
 
@@ -2126,15 +2108,6 @@ __metadata:
   version: 0.20.2
   resolution: "type-fest@npm:0.20.2"
   checksum: 4fb3272df21ad1c552486f8a2f8e115c09a521ad7a8db3d56d53718d0c907b62c6e9141ba5f584af3f6830d0872c521357e512381f24f7c44acae583ad517d73
-  languageName: node
-  linkType: hard
-
-"uid@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "uid@npm:2.0.0"
-  dependencies:
-    "@lukeed/csprng": ^1.0.0
-  checksum: c9333014d9ecc33d6c92ca8e9af8c52f172704b07af3a142879af368b7636f6ffff48cf87bc6021d4c85c7a0b255665ff0fe733f4b4a842f7bfd75638d31dd48
   languageName: node
   linkType: hard
 

@@ -1,11 +1,8 @@
-import { uid } from 'uid';
-
 export const trash = ['🚬', '🥡', '🍬', '🧱', '🔋', '📀'];
 
 export function getRandomTrash() {
 	return {
 		value: trash[Math.round(Math.random() * (trash.length - 1))],
-		id: uid()
 	};
 }
 
