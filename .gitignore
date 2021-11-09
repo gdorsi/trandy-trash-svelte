@@ -1,9 +1,7 @@
 .DS_Store
 node_modules
-/build
 /.svelte-kit
 /package
 .env
 .yarn/*
 !.yarn/releases
-

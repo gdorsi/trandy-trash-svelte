@@ -1,0 +1,1 @@
+.grid.svelte-jh95mo{display:grid;grid-template-columns:repeat(var(--size),1fr);grid-template-rows:repeat(var(--size),1fr);width:400px;height:400px;user-select:none;place-items:center;font-size:36px}.not-valid-move.svelte-jh95mo{opacity:.3}.selected.svelte-jh95mo{opacity:1}
