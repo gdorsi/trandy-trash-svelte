@@ -8,7 +8,7 @@
 
 	const GRID_SIZE = 8;
 
-	const grid = generateGrid(GRID_SIZE);
+	let grid = [];
 	let selected = null;
 	let validMoves = [];
 	let score = 0;
@@ -90,6 +90,12 @@
 	function animationDuration(d) {
 		return Math.sqrt(d) * 30;
 	}
+
+	function start() {
+		score = 0;
+		grid = generateGrid(GRID_SIZE);
+		timer.start();
+	}
 </script>
 
 <svelte:head>
@@ -102,9 +108,9 @@
 		<span class="bulletin">{$timer}</span>
 	{:else if $displayedScore}
 		Last Score: <span class="bulletin">{Math.floor($displayedScore)}</span>
-		<button on:click={timer.start}>Start</button>
+		<button on:click={start}>Start</button>
 	{:else}
-		<button on:click={timer.start}>Start</button>
+		<button on:click={start}>Start</button>
 	{/if}
 </h2>
 
