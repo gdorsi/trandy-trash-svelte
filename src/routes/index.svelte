@@ -84,7 +84,7 @@
 	}
 
 	function flyDistance(i) {
-		return (600 / GRID_SIZE) * (Math.floor(i / GRID_SIZE) + 1);
+		return (400 / GRID_SIZE) * (Math.floor(i / GRID_SIZE) + 1);
 	}
 
 	function animationDuration(d) {
@@ -99,8 +99,10 @@
 </script>
 
 <svelte:head>
-	<title>Trendy Trash</title>
+	<title>Trandy Trash</title>
 </svelte:head>
+
+<h1>✨ Trendy Trash ✨</h1>
 
 <h2>
 	{#if $timer}
@@ -137,9 +139,9 @@
 		font-weight: bold;
 		font-family: var(--font-mono);
 		text-transform: uppercase;
-		font-size: 28px;
+		font-size: min(28px, 5vw);
 		background-color: #0000003d;
-		padding: 16px;
+		padding: .5em;
 		border-radius: 5px;
 		box-shadow: 1px 1px #00000078;
 	}
@@ -156,12 +158,13 @@
 		display: grid;
 		grid-template-columns: repeat(var(--size), 1fr);
 		grid-template-rows: repeat(var(--size), 1fr);
-		width: 400px;
-		height: 400px;
+		max-width: 400px;
+		width: 100%;
+		aspect-ratio: 1 / 1;
+		font-size: min(34px, 8vw);
 		user-select: none;
 		text-align: center;
 		place-items: center;
-		font-size: 34px;
 		border-radius: 5px;
 		background-color: #0000003d;
 		gap: 2px;

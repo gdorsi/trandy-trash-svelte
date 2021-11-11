@@ -3,7 +3,6 @@
 </script>
 
 <main>
-	<h1>✨ Trendy Trash ✨</h1>
 	<slot />
 </main>
 
