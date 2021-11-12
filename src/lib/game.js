@@ -74,7 +74,7 @@ export function getCombo(grid) {
 
 export function getValidMoves(grid, i) {
 	const size = Math.sqrt(grid.length);
-	const validMoves = [i - size, i + size];
+	const validMoves = [i, i - size, i + size];
 
 	const selectedRow = Math.floor(i / size);
 

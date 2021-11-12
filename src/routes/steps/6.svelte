@@ -1,11 +1,5 @@
 <script context="module">
-	import { createTimer } from '$lib/timer';
-	import { createInstallPrompt } from '$lib/install';
-
-	const installPrompt = createInstallPrompt();
-
 	const GRID_SIZE = 8;
-	const timer = createTimer();
 </script>
 
 <script>
@@ -16,11 +10,12 @@
 	import { fly, fade } from 'svelte/transition';
 	import { tweened } from 'svelte/motion';
 
-	let grid = [];
+	let grid = generateGrid(GRID_SIZE);
 	let selected = null;
 	let validMoves = [];
 	let score = 0;
 
+	// Let's add some motion
 	const displayedScore = tweened();
 
 	$: displayedScore.set(score);
@@ -31,6 +26,7 @@
 		validMoves = [];
 	}
 
+	// Combo streaks give more points
 	let streak = 1;
 
 	function processCombos() {
@@ -52,10 +48,6 @@
 	}
 
 	function handleClick(i) {
-		if (!$timer) {
-			return;
-		}
-
 		if (selected !== null) {
 			if (validMoves.includes(i)) {
 				[grid[i], grid[selected]] = [grid[selected], grid[i]];
@@ -76,13 +68,6 @@
 	function animationDuration(d) {
 		return Math.sqrt(d) * 30;
 	}
-
-	function start() {
-		selected = null;
-		score = 0;
-		grid = generateGrid(GRID_SIZE);
-		timer.start();
-	}
 </script>
 
 <svelte:head>
@@ -92,15 +77,8 @@
 <h1>✨ Trandy Trash ✨</h1>
 
 <h2>
-	{#if $timer}
-		Score: <span class="bulletin">{Math.floor($displayedScore)}</span> Timer:
-		<span class="bulletin">{$timer}</span>
-	{:else if $displayedScore}
-		Last Score: <span class="bulletin">{Math.floor($displayedScore)}</span>
-		<button on:click={start}>Start</button>
-	{:else}
-		<button on:click={start}>Start</button>
-	{/if}
+	<!-- Wait what's that $??? -->
+	Score: <span class="bulletin">{Math.floor($displayedScore)}</span>
 </h2>
 
 <div class="grid" style="--size: {GRID_SIZE}">
@@ -120,17 +98,6 @@
 		</div>
 	{/each}
 </div>
-
-{#if $installPrompt}
-	<button
-		class="install"
-		on:click={() => {
-			$installPrompt.prompt();
-		}}
-	>
-		🏠 Add to your homesceen
-	</button>
-{/if}
 
 <style>
 	h2 {

@@ -2,6 +2,7 @@
 	import { createTimer } from '$lib/timer';
 	import { createInstallPrompt } from '$lib/install';
 
+	// PWA!
 	const installPrompt = createInstallPrompt();
 
 	const GRID_SIZE = 8;
@@ -83,6 +84,10 @@
 		grid = generateGrid(GRID_SIZE);
 		timer.start();
 	}
+
+	function isInteractive(i) {
+		return selected === null || validMoves.includes(i);
+	}
 </script>
 
 <svelte:head>
@@ -104,9 +109,10 @@
 </h2>
 
 <div class="grid" style="--size: {GRID_SIZE}">
+	<!-- uh that hurts -->
 	{#each grid as item, i (item)}
 		<div
-			class={classNames('cell', selected === null || validMoves.includes(i) ? 'interactive' : '')}
+			class={classNames('cell', isInteractive(i) ? 'interactive' : '')}
 			on:click={() => handleClick(i)}
 			animate:flip={{ easing: sineIn, duration: animationDuration }}
 			in:fly={{

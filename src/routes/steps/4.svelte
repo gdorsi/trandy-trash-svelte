@@ -1,29 +1,17 @@
 <script context="module">
-	import { createTimer } from '$lib/timer';
-	import { createInstallPrompt } from '$lib/install';
-
-	const installPrompt = createInstallPrompt();
-
 	const GRID_SIZE = 8;
-	const timer = createTimer();
 </script>
 
 <script>
-	import { generateGrid, getCombo, replaceItems, getValidMoves, getComboScore } from '$lib/game';
+	import { generateGrid, getCombo, replaceItems, getValidMoves } from '$lib/game';
 	import classNames from 'classnames';
 	import { flip } from 'svelte/animate';
 	import { sineIn } from 'svelte/easing';
 	import { fly, fade } from 'svelte/transition';
-	import { tweened } from 'svelte/motion';
 
-	let grid = [];
+	let grid = generateGrid(GRID_SIZE);
 	let selected = null;
 	let validMoves = [];
-	let score = 0;
-
-	const displayedScore = tweened();
-
-	$: displayedScore.set(score);
 
 	$: if (selected !== null) {
 		validMoves = getValidMoves(grid, selected);
@@ -31,31 +19,19 @@
 		validMoves = [];
 	}
 
-	let streak = 1;
-
 	function processCombos() {
 		const combo = getCombo(grid);
 
 		if (combo.length) {
-			score += getComboScore(combo, streak);
 			grid = replaceItems(grid, combo);
 
 			if (getCombo(grid).length) {
-				streak++;
 				setTimeout(processCombos, 500);
-			} else {
-				streak = 1;
 			}
-		} else {
-			streak = 1;
 		}
 	}
 
 	function handleClick(i) {
-		if (!$timer) {
-			return;
-		}
-
 		if (selected !== null) {
 			if (validMoves.includes(i)) {
 				[grid[i], grid[selected]] = [grid[selected], grid[i]];
@@ -76,13 +52,6 @@
 	function animationDuration(d) {
 		return Math.sqrt(d) * 30;
 	}
-
-	function start() {
-		selected = null;
-		score = 0;
-		grid = generateGrid(GRID_SIZE);
-		timer.start();
-	}
 </script>
 
 <svelte:head>
@@ -91,18 +60,9 @@
 
 <h1>✨ Trandy Trash ✨</h1>
 
-<h2>
-	{#if $timer}
-		Score: <span class="bulletin">{Math.floor($displayedScore)}</span> Timer:
-		<span class="bulletin">{$timer}</span>
-	{:else if $displayedScore}
-		Last Score: <span class="bulletin">{Math.floor($displayedScore)}</span>
-		<button on:click={start}>Start</button>
-	{:else}
-		<button on:click={start}>Start</button>
-	{/if}
-</h2>
+<div />
 
+<!-- let's add some math! -->
 <div class="grid" style="--size: {GRID_SIZE}">
 	{#each grid as item, i (item)}
 		<div
@@ -121,37 +81,7 @@
 	{/each}
 </div>
 
-{#if $installPrompt}
-	<button
-		class="install"
-		on:click={() => {
-			$installPrompt.prompt();
-		}}
-	>
-		🏠 Add to your homesceen
-	</button>
-{/if}
-
 <style>
-	h2 {
-		font-weight: bold;
-		font-family: var(--font-mono);
-		text-transform: uppercase;
-		font-size: min(28px, 5vw);
-		background-color: #0000003d;
-		padding: 0.5em;
-		border-radius: 5px;
-		box-shadow: 1px 1px #00000078;
-	}
-
-	.bulletin {
-		display: inline-block;
-		background-color: #fffae2;
-		padding: 0.5em;
-		text-align: center;
-		border-radius: 5px;
-	}
-
 	.grid {
 		display: grid;
 		grid-template-columns: repeat(var(--size), 1fr);
@@ -179,11 +109,5 @@
 
 	.interactive {
 		opacity: 1;
-	}
-
-	.install {
-		position: fixed;
-		bottom: 16px;
-		right: 16px;
 	}
 </style>

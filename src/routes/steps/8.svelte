@@ -2,6 +2,7 @@
 	import { createTimer } from '$lib/timer';
 	import { createInstallPrompt } from '$lib/install';
 
+	// PWA!
 	const installPrompt = createInstallPrompt();
 
 	const GRID_SIZE = 8;

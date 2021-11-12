@@ -1,11 +1,5 @@
 <script context="module">
-	import { createTimer } from '$lib/timer';
-	import { createInstallPrompt } from '$lib/install';
-
-	const installPrompt = createInstallPrompt();
-
 	const GRID_SIZE = 8;
-	const timer = createTimer();
 </script>
 
 <script>
@@ -14,16 +8,12 @@
 	import { flip } from 'svelte/animate';
 	import { sineIn } from 'svelte/easing';
 	import { fly, fade } from 'svelte/transition';
-	import { tweened } from 'svelte/motion';
 
-	let grid = [];
+	let grid = generateGrid(GRID_SIZE);
 	let selected = null;
 	let validMoves = [];
+	// What's a game without a score?
 	let score = 0;
-
-	const displayedScore = tweened();
-
-	$: displayedScore.set(score);
 
 	$: if (selected !== null) {
 		validMoves = getValidMoves(grid, selected);
@@ -31,6 +21,7 @@
 		validMoves = [];
 	}
 
+	// Combo streaks give more points
 	let streak = 1;
 
 	function processCombos() {
@@ -52,10 +43,6 @@
 	}
 
 	function handleClick(i) {
-		if (!$timer) {
-			return;
-		}
-
 		if (selected !== null) {
 			if (validMoves.includes(i)) {
 				[grid[i], grid[selected]] = [grid[selected], grid[i]];
@@ -76,13 +63,6 @@
 	function animationDuration(d) {
 		return Math.sqrt(d) * 30;
 	}
-
-	function start() {
-		selected = null;
-		score = 0;
-		grid = generateGrid(GRID_SIZE);
-		timer.start();
-	}
 </script>
 
 <svelte:head>
@@ -92,15 +72,7 @@
 <h1>✨ Trandy Trash ✨</h1>
 
 <h2>
-	{#if $timer}
-		Score: <span class="bulletin">{Math.floor($displayedScore)}</span> Timer:
-		<span class="bulletin">{$timer}</span>
-	{:else if $displayedScore}
-		Last Score: <span class="bulletin">{Math.floor($displayedScore)}</span>
-		<button on:click={start}>Start</button>
-	{:else}
-		<button on:click={start}>Start</button>
-	{/if}
+	Score: <span class="bulletin">{Math.floor(score)}</span>
 </h2>
 
 <div class="grid" style="--size: {GRID_SIZE}">
@@ -120,17 +92,6 @@
 		</div>
 	{/each}
 </div>
-
-{#if $installPrompt}
-	<button
-		class="install"
-		on:click={() => {
-			$installPrompt.prompt();
-		}}
-	>
-		🏠 Add to your homesceen
-	</button>
-{/if}
 
 <style>
 	h2 {
