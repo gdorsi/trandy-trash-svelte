@@ -1,9 +1,9 @@
 import { writable } from 'svelte/store';
 
-function createTimer() {
+export function createTimer() {
 	const { set, update, subscribe } = writable(0, () => {
-        return stop;
-    });
+		return stop;
+	});
 
 	let interval;
 
@@ -28,11 +28,9 @@ function createTimer() {
 		}, 1000);
 	}
 
-    return {
-        subscribe,
-        start,
-        stop,
-    }
+	return {
+		subscribe,
+		start,
+		stop
+	};
 }
-
-export const timer = createTimer();

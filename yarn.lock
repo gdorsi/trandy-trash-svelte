@@ -111,14 +111,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sveltejs/adapter-static@npm:^1.0.0-next.0":
-  version: 1.0.0-next.21
-  resolution: "@sveltejs/adapter-static@npm:1.0.0-next.21"
-  checksum: 453c05ed00977b7e37749e503b5b566576478d07103f14a751036389572f8dc02ea1783e3166beaee88c597279441be1d2b5627f932000d8555a451ee98c5a46
-  languageName: node
-  linkType: hard
-
-"@sveltejs/adapter-vercel@npm:^1.0.0-next.0":
+"@sveltejs/adapter-vercel@npm:next":
   version: 1.0.0-next.31
   resolution: "@sveltejs/adapter-vercel@npm:1.0.0-next.31"
   dependencies:
@@ -464,13 +457,6 @@ __metadata:
   version: 1.1.0
   resolution: "console-control-strings@npm:1.1.0"
   checksum: 8755d76787f94e6cf79ce4666f0c5519906d7f5b02d4b884cf41e11dcd759ed69c57da0670afd9236d229a46e0f9cf519db0cd829c6dca820bb5a5c3def584ed
-  languageName: node
-  linkType: hard
-
-"cookie@npm:^0.4.1":
-  version: 0.4.1
-  resolution: "cookie@npm:0.4.1"
-  checksum: bd7c47f5d94ab70ccdfe8210cde7d725880d2fcda06d8e375afbdd82de0c8d3b73541996e9ce57d35f67f672c4ee6d60208adec06b3c5fc94cebb85196084cf8
   languageName: node
   linkType: hard
 
@@ -2281,16 +2267,17 @@ __metadata:
   resolution: "trandy-trash@workspace:."
   dependencies:
     "@fontsource/fira-mono": ^4.5.0
-    "@sveltejs/adapter-static": ^1.0.0-next.0
-    "@sveltejs/adapter-vercel": ^1.0.0-next.0
+    "@sveltejs/adapter-vercel": next
     "@sveltejs/kit": next
-    cookie: ^0.4.1
     eslint: ^7.32.0
     eslint-config-prettier: ^8.3.0
     eslint-plugin-svelte3: ^3.2.1
     prettier: ^2.4.1
     prettier-plugin-svelte: ^2.4.0
     svelte: ^3.34.0
+    workbox-cacheable-response: ^6.3.0
+    workbox-routing: ^6.3.0
+    workbox-strategies: ^6.3.0
   languageName: unknown
   linkType: soft
 
@@ -2404,6 +2391,40 @@ __metadata:
   version: 1.2.3
   resolution: "word-wrap@npm:1.2.3"
   checksum: 30b48f91fcf12106ed3186ae4fa86a6a1842416df425be7b60485de14bec665a54a68e4b5156647dec3a70f25e84d270ca8bc8cd23182ed095f5c7206a938c1f
+  languageName: node
+  linkType: hard
+
+"workbox-cacheable-response@npm:^6.3.0":
+  version: 6.4.0
+  resolution: "workbox-cacheable-response@npm:6.4.0"
+  dependencies:
+    workbox-core: 6.4.0
+  checksum: 5c076526ebb89047e87b56f37435dc618cd9e1f9cd486ad95ca7e338d56575a80ef20ead1090b4c95fd2e7b4166fd626ff5b4c45317b7d882102329d324e6378
+  languageName: node
+  linkType: hard
+
+"workbox-core@npm:6.4.0":
+  version: 6.4.0
+  resolution: "workbox-core@npm:6.4.0"
+  checksum: 30d3b45a6984d104f6eb089b4b045c28fe01d88c5abeb93f909deb431c77fcfe30a426c5dca8892131b8c81ef70d098abfdc9603a2a539c520fb8e0d8ae2ca40
+  languageName: node
+  linkType: hard
+
+"workbox-routing@npm:^6.3.0":
+  version: 6.4.0
+  resolution: "workbox-routing@npm:6.4.0"
+  dependencies:
+    workbox-core: 6.4.0
+  checksum: 6cc45a629c66cbce0857f63b1f649d8a3968cbe2b6e28a0b31072c181a5408777bb7a2c70b218f01c5c26ba0b7cc58c4c37f0a9b85f803868c62b403d3738a79
+  languageName: node
+  linkType: hard
+
+"workbox-strategies@npm:^6.3.0":
+  version: 6.4.0
+  resolution: "workbox-strategies@npm:6.4.0"
+  dependencies:
+    workbox-core: 6.4.0
+  checksum: 2cf2e572a5b3c8757c5a27b261a8a71992cb2b4853671edbf1eb43bae6fce7c96757ac7fb92e89858e470afdc67735902c34cb1575472af6fc668ff83f971b34
   languageName: node
   linkType: hard
 

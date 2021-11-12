@@ -2,26 +2,26 @@ export const trash = ['🚬', '🥡', '🍬', '🧱', '🔋', '📀'];
 
 export function getRandomTrash() {
 	return {
-		value: trash[Math.round(Math.random() * (trash.length - 1))],
+		value: trash[Math.round(Math.random() * (trash.length - 1))]
 	};
 }
 
 export function generateGrid(size) {
 	const grid = Array.from(Array(size * size), getRandomTrash);
-    let combos = getCombos(grid, size)
+	let combos = getCombos(grid, size);
 
-    // No combo at start
-    while (combos.length) {
-        for (let combo of combos) {
-            for (let i of combo) {
-                grid[i] = getRandomTrash();
-            }
-        }
+	// No combo at start
+	while (combos.length) {
+		for (let combo of combos) {
+			for (let i of combo) {
+				grid[i] = getRandomTrash();
+			}
+		}
 
-        combos = getCombos(grid, size);
-    }
+		combos = getCombos(grid, size);
+	}
 
-    return grid;
+	return grid;
 }
 
 function sameValue(a, b) {

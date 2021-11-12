@@ -1,12 +1,16 @@
+<script context="module">
+	import { createTimer } from '$lib/timer';
+
+	const GRID_SIZE = 8;
+	const timer = createTimer();
+</script>
+
 <script>
 	import { generateGrid, getCombos, getRandomTrash } from '$lib/game';
 	import { flip } from 'svelte/animate';
 	import { sineIn } from 'svelte/easing';
 	import { fly, fade } from 'svelte/transition';
 	import { tweened } from 'svelte/motion';
-	import { timer } from '$lib/timer';
-
-	const GRID_SIZE = 8;
 
 	let grid = [];
 	let selected = null;
@@ -39,7 +43,7 @@
 		const combos = getCombos(grid, GRID_SIZE);
 
 		for (let combo of combos) {
-			score += combo.size * streak * combos.length;
+			score += 3 ** (combo.size - 2) * streak * combos.length;
 
 			for (let i of combo) {
 				let j = i;
@@ -99,10 +103,10 @@
 </script>
 
 <svelte:head>
-	<title>Trandy Trash</title>
+	<title>✨ Trandy Trash ✨</title>
 </svelte:head>
 
-<h1>✨ Trendy Trash ✨</h1>
+<h1>✨ Trandy Trash ✨</h1>
 
 <h2>
 	{#if $timer}
@@ -141,7 +145,7 @@
 		text-transform: uppercase;
 		font-size: min(28px, 5vw);
 		background-color: #0000003d;
-		padding: .5em;
+		padding: 0.5em;
 		border-radius: 5px;
 		box-shadow: 1px 1px #00000078;
 	}
