@@ -1,12 +1,15 @@
 <script context="module">
 	import { createTimer } from '$lib/timer';
+	import { createInstallPrompt } from '$lib/install';
+
+	const installPrompt = createInstallPrompt();
 
 	const GRID_SIZE = 8;
 	const timer = createTimer();
 </script>
 
 <script>
-	import { generateGrid, getCombos, getRandomTrash } from '$lib/game';
+	import { generateGrid, getCombo, replaceItems, getValidMoves, getComboScore } from '$lib/game';
 	import { flip } from 'svelte/animate';
 	import { sineIn } from 'svelte/easing';
 	import { fly, fade } from 'svelte/transition';
@@ -22,17 +25,7 @@
 	$: displayedScore.set(score);
 
 	$: if (selected !== null) {
-		validMoves = [selected - GRID_SIZE, selected + GRID_SIZE];
-
-		const selectedRow = Math.floor(selected / GRID_SIZE);
-
-		if (selectedRow === Math.floor((selected - 1) / GRID_SIZE)) {
-			validMoves.push(selected - 1);
-		}
-
-		if (selectedRow === Math.floor((selected + 1) / GRID_SIZE)) {
-			validMoves.push(selected + 1);
-		}
+		validMoves = getValidMoves(grid, selected);
 	} else {
 		validMoves = [];
 	}
@@ -40,26 +33,18 @@
 	let streak = 1;
 
 	function processCombos() {
-		const combos = getCombos(grid, GRID_SIZE);
+		const combo = getCombo(grid);
 
-		for (let combo of combos) {
-			score += 3 ** (combo.size - 2) * streak * combos.length;
+		if (combo.length) {
+			score += getComboScore(combo, streak);
+			grid = replaceItems(grid, combo);
 
-			for (let i of combo) {
-				let j = i;
-
-				while (j > 7) {
-					[grid[j], grid[j - GRID_SIZE]] = [grid[j - GRID_SIZE], grid[j]];
-					j -= GRID_SIZE;
-				}
-
-				grid[i % GRID_SIZE] = getRandomTrash();
+			if (getCombo(grid).length) {
+				streak++;
+				setTimeout(processCombos, 500);
+			} else {
+				streak = 1;
 			}
-		}
-
-		if (getCombos(grid, GRID_SIZE).length) {
-			streak++;
-			setTimeout(processCombos, 500);
 		} else {
 			streak = 1;
 		}
@@ -96,6 +81,7 @@
 	}
 
 	function start() {
+		selected = null;
 		score = 0;
 		grid = generateGrid(GRID_SIZE);
 		timer.start();
@@ -137,6 +123,17 @@
 		</div>
 	{/each}
 </div>
+
+{#if $installPrompt}
+	<button
+		class="install"
+		on:click={() => {
+			$installPrompt.prompt();
+		}}
+	>
+		🏠 Add to your homesceen
+	</button>
+{/if}
 
 <style>
 	h2 {
@@ -188,5 +185,11 @@
 
 	.selected {
 		opacity: 1;
+	}
+
+	.install {
+		position: fixed;
+		bottom: 16px;
+		right: 16px;
 	}
 </style>

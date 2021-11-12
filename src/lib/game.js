@@ -8,17 +8,15 @@ export function getRandomTrash() {
 
 export function generateGrid(size) {
 	const grid = Array.from(Array(size * size), getRandomTrash);
-	let combos = getCombos(grid, size);
+	let combo = getCombo(grid, size);
 
 	// No combo at start
-	while (combos.length) {
-		for (let combo of combos) {
-			for (let i of combo) {
-				grid[i] = getRandomTrash();
-			}
+	while (combo.length) {
+		for (let i of combo) {
+			grid[i] = getRandomTrash();
 		}
 
-		combos = getCombos(grid, size);
+		combo = getCombo(grid, size);
 	}
 
 	return grid;
@@ -30,55 +28,84 @@ function sameValue(a, b) {
 	return a.value === b.value;
 }
 
-export function getCombos(grid, size) {
-	const inACombo = new Set();
-	const combos = [];
-	let currentCombo = new Set();
+export function getCombo(grid) {
+	const size = Math.sqrt(grid.length);
+	const combo = new Set();
 
 	const getRow = (i) => Math.floor(i / size);
-	const addToCombo = (i) => {
-		currentCombo.add(i);
-		inACombo.add(i);
+	const addToCombo = (...args) => {
+		for (let i of args) {
+			combo.add(i);
+		}
 	};
 
+	const streak = [];
+
+	// horizontal combos
 	for (let i = 0; i < grid.length; i++) {
-		if (inACombo.has(i)) {
-			continue;
-		}
-
-		if (
-			sameValue(grid[i], grid[i + 1]) &&
-			sameValue(grid[i], grid[i + 2]) &&
-			getRow(i) === getRow(i + 2)
-		) {
-			addToCombo(i);
-			addToCombo(i + 1);
-			addToCombo(i + 2);
-			let j = i + 3;
-
-			while (sameValue(grid[i], grid[j]) && getRow(i) === getRow(j)) {
-				addToCombo(j);
-				j++;
+		if (sameValue(grid[i], grid[i + 1]) && getRow(i) === getRow(i + 1)) {
+			streak.push(i);
+		} else {
+			if (streak.length > 1) {
+				addToCombo(...streak, i);
 			}
-		}
-
-		if (sameValue(grid[i], grid[i + 8]) && sameValue(grid[i], grid[i + 16])) {
-			addToCombo(i);
-			addToCombo(i + 8);
-			addToCombo(i + 16);
-			let j = i + 24;
-
-			while (sameValue(grid[i], grid[j])) {
-				addToCombo(j);
-				j += 8;
-			}
-		}
-
-		if (currentCombo.size) {
-			combos.push(currentCombo);
-			currentCombo = new Set();
+			streak.length = 0;
 		}
 	}
 
-	return combos;
+	// vertical combos
+	for (let col = 0; col < size; col++) {
+		for (let row = 0; row < size; row++) {
+			const i = row * size + col;
+
+			if (sameValue(grid[i], grid[i + size])) {
+				streak.push(i);
+			} else {
+				if (streak.length > 1) {
+					addToCombo(...streak, i);
+				}
+				streak.length = 0;
+			}
+		}
+	}
+
+	return Array.from(combo.values()).sort((a, b) => a - b);
+}
+
+export function getValidMoves(grid, i) {
+	const size = Math.sqrt(grid.length);
+	const validMoves = [i - size, i + size];
+
+	const selectedRow = Math.floor(i / size);
+
+	if (selectedRow === Math.floor((i - 1) / size)) {
+		validMoves.push(i - 1);
+	}
+
+	if (selectedRow === Math.floor((i + 1) / size)) {
+		validMoves.push(i + 1);
+	}
+
+	return validMoves;
+}
+
+export function getComboScore(combo, streak) {
+	return combo.length ** streak;
+}
+
+export function replaceItems(grid, combo) {
+	const size = Math.sqrt(grid.length);
+
+	for (let i of combo) {
+		let j = i;
+
+		while (j > 7) {
+			[grid[j], grid[j - size]] = [grid[j - size], grid[j]];
+			j -= size;
+		}
+
+		grid[i % size] = getRandomTrash();
+	}
+
+	return grid;
 }
