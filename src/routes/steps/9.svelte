@@ -11,7 +11,6 @@
 
 <script>
 	import { generateGrid, getCombo, replaceItems, getValidMoves, getComboScore } from '$lib/game';
-	import classNames from 'classnames';
 	import { flip } from 'svelte/animate';
 	import { sineIn } from 'svelte/easing';
 	import { fly, fade } from 'svelte/transition';
@@ -112,7 +111,8 @@
 	<!-- uh that hurts -->
 	{#each grid as item, i (item)}
 		<div
-			class={classNames('cell', isInteractive(i) ? 'interactive' : '')}
+			class="cell"
+			class:interactive={selected === null || validMoves.includes(i)}
 			on:click={() => handleClick(i)}
 			animate:flip={{ easing: sineIn, duration: animationDuration }}
 			in:fly={{

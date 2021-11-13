@@ -4,7 +4,6 @@
 
 <script>
 	import { generateGrid, getCombo, replaceItems, getValidMoves } from '$lib/game';
-	import classNames from 'classnames';
 
 	// state
 	let grid = generateGrid(GRID_SIZE);
@@ -57,7 +56,8 @@
 <div class="grid" style="--size: {GRID_SIZE}">
 	{#each grid as item, i (item)}
 		<div
-			class={classNames('cell', selected === null || validMoves.includes(i) ? 'interactive' : '')}
+			class="cell"
+			class:interactive={selected === null || validMoves.includes(i)}
 			on:click={() => handleClick(i)}
 		>
 			{item.value}
