@@ -1,12 +1,7 @@
-<script context="module">
-    // This is called only on init
-    // Here you can place the component props
-    // And export some utility functions
-	const GRID_SIZE = 8;
-</script>
-
 <script>
 	import { generateGrid } from '$lib/game';
+
+	const GRID_SIZE = 8;
 
 	const grid = generateGrid(GRID_SIZE);
 </script>
