@@ -1,9 +1,46 @@
 <script>
-	import { generateGrid } from '$lib/game';
+	import { generateGrid, getCombo, replaceItems, getValidMoves } from '$lib/game';
 
 	const GRID_SIZE = 8;
 
-	const grid = generateGrid(GRID_SIZE);
+	// state
+	let grid = generateGrid(GRID_SIZE);
+	let selected = null;
+	let validMoves = [];
+
+	// reactive statement!
+	$: if (selected !== null) {
+		validMoves = getValidMoves(grid, selected);
+	} else {
+		validMoves = [];
+	}
+
+	function processCombos() {
+		const combo = getCombo(grid);
+
+		if (combo.length) {
+			grid = replaceItems(grid, combo);
+
+			// the streak continues?
+			if (getCombo(grid).length) {
+				setTimeout(processCombos, 500);
+			}
+		}
+	}
+
+	function handleClick(i) {
+		if (selected !== null) {
+			if (validMoves.includes(i)) {
+				[grid[i], grid[selected]] = [grid[selected], grid[i]];
+			}
+
+			setTimeout(processCombos, 500);
+
+			selected = null;
+		} else {
+			selected = i;
+		}
+	}
 </script>
 
 <svelte:head>
@@ -15,15 +52,17 @@
 <div />
 
 <div class="grid" style="--size: {GRID_SIZE}">
-    <!-- Keys can be object refs! -->
-	{#each grid as item (item)}
-		<div class="cell">
+	{#each grid as item, i (item)}
+		<div
+			class="cell"
+			class:interactive={selected === null || validMoves.includes(i)}
+			on:click={() => handleClick(i)}
+		>
 			{item.value}
 		</div>
 	{/each}
 </div>
 
-<!-- Styles are automatically scoped -->
 <style>
 	.grid {
 		display: grid;
@@ -47,5 +86,10 @@
 		height: 100%;
 		width: 100%;
 		border-radius: 2px;
+		opacity: 0.3;
+	}
+
+	.interactive {
+		opacity: 1;
 	}
 </style>

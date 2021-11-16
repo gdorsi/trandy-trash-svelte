@@ -1,9 +1,7 @@
-<script context="module">
-	const GRID_SIZE = 8;
-</script>
-
 <script>
 	import { generateGrid, getCombo, replaceItems, getValidMoves } from '$lib/game';
+
+	const GRID_SIZE = 8;
 
 	// state
 	let grid = generateGrid(GRID_SIZE);
