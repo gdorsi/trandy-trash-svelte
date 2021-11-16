@@ -84,7 +84,7 @@
 </script>
 
 <svelte:head>
-	<title>✨ Trandy Trash ✨</title>
+	<title>8</title>
 </svelte:head>
 
 <h1>✨ Trandy Trash ✨</h1>

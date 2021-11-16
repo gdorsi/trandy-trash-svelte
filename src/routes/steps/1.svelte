@@ -7,7 +7,7 @@
 </script>
 
 <svelte:head>
-	<title>✨ Trandy Trash ✨</title>
+	<title>1</title>
 </svelte:head>
 
 <h1>✨ Trandy Trash ✨</h1>
@@ -22,6 +22,8 @@
 		</div>
 	{/each}
 </div>
+
+<a href="/steps/2" style="color:black; font-weight: bold;"target="_blank">Next</a>
 
 <!-- Styles are automatically scoped -->
 <style>

@@ -52,7 +52,7 @@
 </script>
 
 <svelte:head>
-	<title>✨ Trandy Trash ✨</title>
+	<title>4</title>
 </svelte:head>
 
 <h1>✨ Trandy Trash ✨</h1>
@@ -78,6 +78,8 @@
 		</div>
 	{/each}
 </div>
+
+<a href="/steps/5" style="color:black; font-weight: bold;"target="_blank">Next</a>
 
 <style>
 	.grid {
