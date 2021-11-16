@@ -5,12 +5,13 @@
 	import { fly, fade } from 'svelte/transition';
 	import { tweened } from 'svelte/motion';
 
-	// With stores you can make stateful logic reusable
 	import { createTimer } from '$lib/timer';
+	import { createInstallPrompt } from '$lib/install';
+
+	// PWA!
+	const installPrompt = createInstallPrompt();
 
 	const GRID_SIZE = 8;
-
-	// Ah now it's a game, tik tok!
 	const timer = createTimer();
 
 	let grid = [];
@@ -89,10 +90,6 @@
 <h1>✨ Trandy Trash ✨</h1>
 
 <h2>
-	<!-- 
-		You get that now? $ is used as syntactic 
-		sugar to automatically subscribe to a store 
-	-->
 	{#if $timer}
 		Score: <span class="bulletin">{Math.floor($displayedScore)}</span> Timer:
 		<span class="bulletin">{$timer}</span>
@@ -122,6 +119,17 @@
 		</div>
 	{/each}
 </div>
+
+{#if $installPrompt}
+	<button
+		class="install"
+		on:click={() => {
+			$installPrompt.prompt();
+		}}
+	>
+		🏠 Add to your homesceen
+	</button>
+{/if}
 
 <style>
 	h2 {
@@ -170,5 +178,11 @@
 
 	.interactive {
 		opacity: 1;
+	}
+
+	.install {
+		position: fixed;
+		bottom: 16px;
+		right: 16px;
 	}
 </style>

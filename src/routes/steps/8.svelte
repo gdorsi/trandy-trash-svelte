@@ -1,4 +1,10 @@
-<script context="module">
+<script>
+	import { generateGrid, getCombo, replaceItems, getValidMoves, getComboScore } from '$lib/game';
+	import { flip } from 'svelte/animate';
+	import { sineIn } from 'svelte/easing';
+	import { fly, fade } from 'svelte/transition';
+	import { tweened } from 'svelte/motion';
+
 	import { createTimer } from '$lib/timer';
 	import { createInstallPrompt } from '$lib/install';
 
@@ -7,14 +13,6 @@
 
 	const GRID_SIZE = 8;
 	const timer = createTimer();
-</script>
-
-<script>
-	import { generateGrid, getCombo, replaceItems, getValidMoves, getComboScore } from '$lib/game';
-	import { flip } from 'svelte/animate';
-	import { sineIn } from 'svelte/easing';
-	import { fly, fade } from 'svelte/transition';
-	import { tweened } from 'svelte/motion';
 
 	let grid = [];
 	let selected = null;
