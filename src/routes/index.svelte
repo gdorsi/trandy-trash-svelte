@@ -1,5 +1,5 @@
 <script>
-	import { generateGrid, getCombo, replaceItems, getValidMoves } from '$lib/game';
+	import { generateGrid, getCombo, replaceItems, getValidMoves, getComboScore } from '$lib/game';
 	import { flip } from 'svelte/animate';
 	import { sineIn } from 'svelte/easing';
 	import { fly, fade } from 'svelte/transition';
@@ -9,6 +9,8 @@
 	let grid = generateGrid(GRID_SIZE);
 	let selected = null;
 	let validMoves = [];
+	// What's a game without a score?
+	let score = 0;
 
 	$: if (selected !== null) {
 		validMoves = getValidMoves(grid, selected);
@@ -16,15 +18,24 @@
 		validMoves = [];
 	}
 
+	// Combo streaks give more points
+	let streak = 1;
+
 	function processCombos() {
 		const combo = getCombo(grid);
 
 		if (combo.length) {
+			score += getComboScore(combo, streak);
 			grid = replaceItems(grid, combo);
 
 			if (getCombo(grid).length) {
+				streak++;
 				setTimeout(processCombos, 500);
+			} else {
+				streak = 1;
 			}
+		} else {
+			streak = 1;
 		}
 	}
 
@@ -57,9 +68,10 @@
 
 <h1>✨ Trandy Trash ✨</h1>
 
-<div />
+<h2>
+	Score: <span class="bulletin">{Math.floor(score)}</span>
+</h2>
 
-<!-- let's add some math! -->
 <div class="grid" style="--size: {GRID_SIZE}">
 	{#each grid as item, i (item)}
 		<div
@@ -80,6 +92,25 @@
 </div>
 
 <style>
+	h2 {
+		font-weight: bold;
+		font-family: var(--font-mono);
+		text-transform: uppercase;
+		font-size: min(28px, 5vw);
+		background-color: #0000003d;
+		padding: 0.5em;
+		border-radius: 5px;
+		box-shadow: 1px 1px #00000078;
+	}
+
+	.bulletin {
+		display: inline-block;
+		background-color: #fffae2;
+		padding: 0.5em;
+		text-align: center;
+		border-radius: 5px;
+	}
+
 	.grid {
 		display: grid;
 		grid-template-columns: repeat(var(--size), 1fr);
