@@ -1,6 +1,7 @@
 <script>
 	import { generateGrid, getCombo, replaceItems, getValidMoves } from '$lib/game';
 	import { flip } from 'svelte/animate';
+	import { sineIn } from 'svelte/easing';
 	import { fly, fade } from 'svelte/transition';
 
 	const GRID_SIZE = 8;
@@ -40,6 +41,14 @@
 			selected = i;
 		}
 	}
+
+	function flyDistance(i) {
+		return (400 / GRID_SIZE) * (Math.floor(i / GRID_SIZE) + 1);
+	}
+
+	function animationDuration(d) {
+		return Math.sqrt(d) * 30;
+	}
 </script>
 
 <svelte:head>
@@ -50,15 +59,19 @@
 
 <div />
 
-<!-- built in animations! -->
+<!-- let's add some math! -->
 <div class="grid" style="--size: {GRID_SIZE}">
 	{#each grid as item, i (item)}
 		<div
 			class="cell"
 			class:interactive={selected === null || validMoves.includes(i)}
 			on:click={() => handleClick(i)}
-			animate:flip
-			in:fly
+			animate:flip={{ easing: sineIn, duration: animationDuration }}
+			in:fly={{
+				easing: sineIn,
+				y: flyDistance(i) * -1,
+				duration: animationDuration(flyDistance(i))
+			}}
 			out:fade
 		>
 			{item.value}

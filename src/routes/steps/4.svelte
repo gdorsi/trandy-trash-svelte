@@ -1,12 +1,10 @@
-<script context="module">
-	const GRID_SIZE = 8;
-</script>
-
 <script>
 	import { generateGrid, getCombo, replaceItems, getValidMoves } from '$lib/game';
 	import { flip } from 'svelte/animate';
 	import { sineIn } from 'svelte/easing';
 	import { fly, fade } from 'svelte/transition';
+
+	const GRID_SIZE = 8;
 
 	let grid = generateGrid(GRID_SIZE);
 	let selected = null;
