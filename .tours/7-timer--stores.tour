@@ -1,6 +1,7 @@
 {
   "$schema": "https://aka.ms/codetour-schema",
   "title": "7. Timer & stores",
+  "nextTour": "8. PWA",
   "steps": [
     {
       "file": "src/routes/index.svelte",

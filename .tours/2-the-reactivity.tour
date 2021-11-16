@@ -1,6 +1,7 @@
 {
   "$schema": "https://aka.ms/codetour-schema",
   "title": "2. The Reactivity",
+  "nextTour": "3. Animations",
   "steps": [
     {
       "file": "src/routes/index.svelte",

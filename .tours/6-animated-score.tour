@@ -1,6 +1,7 @@
 {
   "$schema": "https://aka.ms/codetour-schema",
   "title": "6. Animated score",
+  "nextTour": "7. Timer & stores",
   "steps": [
     {
       "file": "src/routes/index.svelte",

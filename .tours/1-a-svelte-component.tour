@@ -1,6 +1,7 @@
 {
   "$schema": "https://aka.ms/codetour-schema",
   "title": "1. A Svelte Component",
+  "nextTour": "2. The Reactivity",
   "steps": [
     {
       "file": "src/routes/index.svelte",

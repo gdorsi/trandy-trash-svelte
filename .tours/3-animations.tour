@@ -1,6 +1,7 @@
 {
   "$schema": "https://aka.ms/codetour-schema",
   "title": "3. Animations",
+  "nextTour": "4. Better Animations",
   "steps": [
     {
       "file": "src/routes/index.svelte",
