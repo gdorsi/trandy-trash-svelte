@@ -5,14 +5,19 @@
 	import { fly, fade } from 'svelte/transition';
 	import { tweened } from 'svelte/motion';
 
+	// With stores you can make stateful logic reusable
+	import { createTimer } from '$lib/timer';
+
 	const GRID_SIZE = 8;
 
-	let grid = generateGrid(GRID_SIZE);
+	// Ah now it's a game, tik tok!
+	const timer = createTimer();
+
+	let grid = [];
 	let selected = null;
 	let validMoves = [];
 	let score = 0;
 
-	// Let's add some motion
 	const displayedScore = tweened();
 
 	$: displayedScore.set(score);
@@ -23,7 +28,6 @@
 		validMoves = [];
 	}
 
-	// Combo streaks give more points
 	let streak = 1;
 
 	function processCombos() {
@@ -45,6 +49,10 @@
 	}
 
 	function handleClick(i) {
+		if (!$timer) {
+			return;
+		}
+
 		if (selected !== null) {
 			if (validMoves.includes(i)) {
 				[grid[i], grid[selected]] = [grid[selected], grid[i]];
@@ -65,6 +73,13 @@
 	function animationDuration(d) {
 		return Math.sqrt(d) * 30;
 	}
+
+	function start() {
+		selected = null;
+		score = 0;
+		grid = generateGrid(GRID_SIZE);
+		timer.start();
+	}
 </script>
 
 <svelte:head>
@@ -74,8 +89,19 @@
 <h1>✨ Trandy Trash ✨</h1>
 
 <h2>
-	<!-- Wait what's that $??? -->
-	Score: <span class="bulletin">{Math.floor($displayedScore)}</span>
+	<!-- 
+		You get that now? $ is used as syntactic 
+		sugar to automatically subscribe to a store 
+	-->
+	{#if $timer}
+		Score: <span class="bulletin">{Math.floor($displayedScore)}</span> Timer:
+		<span class="bulletin">{$timer}</span>
+	{:else if $displayedScore}
+		Last Score: <span class="bulletin">{Math.floor($displayedScore)}</span>
+		<button on:click={start}>Start</button>
+	{:else}
+		<button on:click={start}>Start</button>
+	{/if}
 </h2>
 
 <div class="grid" style="--size: {GRID_SIZE}">

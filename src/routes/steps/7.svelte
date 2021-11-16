@@ -1,4 +1,10 @@
-<script context="module">
+<script>
+	import { generateGrid, getCombo, replaceItems, getValidMoves, getComboScore } from '$lib/game';
+	import { flip } from 'svelte/animate';
+	import { sineIn } from 'svelte/easing';
+	import { fly, fade } from 'svelte/transition';
+	import { tweened } from 'svelte/motion';
+
 	// This is how you make stateful logic reusable
 	import { createTimer } from '$lib/timer';
 
@@ -6,14 +12,6 @@
 
 	// Ah now it's a game, tik tok!
 	const timer = createTimer();
-</script>
-
-<script>
-	import { generateGrid, getCombo, replaceItems, getValidMoves, getComboScore } from '$lib/game';
-	import { flip } from 'svelte/animate';
-	import { sineIn } from 'svelte/easing';
-	import { fly, fade } from 'svelte/transition';
-	import { tweened } from 'svelte/motion';
 
 	let grid = [];
 	let selected = null;
