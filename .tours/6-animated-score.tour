@@ -1,0 +1,17 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "6. Animated score",
+  "steps": [
+    {
+      "file": "src/routes/index.svelte",
+      "description": "E sempre con i moduli built-in di Svelte è possibile animare l'incremento dello score",
+      "line": 18
+    },
+    {
+      "file": "src/routes/index.svelte",
+      "description": "Basta sostituire `score` con `$displayedScore` et voilà!\n\nSiccome `tweened` gestisce uno stato che non è dichiarato nel componente il prefisso `$` ci permette di fare automaticamente subscribe di quello stato.",
+      "line": 78
+    }
+  ],
+  "ref": "fbfec7374f4273598a22aba21aa46abeaed1d006"
+}

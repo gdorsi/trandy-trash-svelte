@@ -1,0 +1,27 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "7. Timer & stores",
+  "steps": [
+    {
+      "file": "src/routes/index.svelte",
+      "description": "Usando come esempio `tweened` possiamo anche noi dicharare uno stato gestito al di fuori del componente",
+      "line": 14
+    },
+    {
+      "file": "src/lib/timer.js",
+      "description": "Per farlo utilizzeremo uno `Store` che è praticamente un oggetto che espone un metodo `subscribe`",
+      "line": 34
+    },
+    {
+      "file": "src/lib/timer.js",
+      "description": "Le factory `writable` e `readable` mettono a disposizione le feature base per la gestione di uno store",
+      "line": 6
+    },
+    {
+      "file": "src/routes/index.svelte",
+      "description": "Come per `tweened` usando il prefisso `$` è possibile accedere al valore dello store e aggiornare il componente quando lo stato dello store cambia",
+      "line": 104
+    }
+  ],
+  "ref": "1164b82f68f00f0c58518e68d81a6e79069e09fb"
+}

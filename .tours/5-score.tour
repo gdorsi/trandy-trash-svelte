@@ -1,0 +1,22 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "5. Score",
+  "steps": [
+    {
+      "file": "src/routes/index.svelte",
+      "description": "Iniziamo a calcolare il punteggio!\n\n",
+      "line": 13
+    },
+    {
+      "file": "src/routes/index.svelte",
+      "description": "Ogni volta che una combo viene realizzata aggiorniamo il punteggio, più grandi e conitnue sono le combo più punti si faranno",
+      "line": 40
+    },
+    {
+      "file": "src/routes/index.svelte",
+      "description": "Se semplicemente inserendo lo `score` nel template il punteggio verrà aggiornato ad ogni modifica",
+      "line": 73
+    }
+  ],
+  "ref": "19f1b4f21adff854eef881c11a031a023aee7374"
+}

@@ -1,0 +1,52 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "8. PWA",
+  "steps": [
+    {
+      "file": "src/routes/index.svelte",
+      "description": "Sempre con gli store è possibile implementare anche funzionalità più complesse",
+      "line": 12
+    },
+    {
+      "file": "src/lib/install.js",
+      "description": "Ad esempio in questo caso siamo in ascolto dell'evento `beforeinstallprompt` in modo da customizzare l'installazione della PWA",
+      "line": 16,
+      "selection": {
+        "start": {
+          "line": 11,
+          "character": 22
+        },
+        "end": {
+          "line": 11,
+          "character": 41
+        }
+      }
+    },
+    {
+      "file": "src/service-worker.js",
+      "description": "Il framework che ho usato per fare questa applicazione è SvelteKit.\n\nMi basta definire un file `service-worker.js` nella cartella `src` e nella built di produzione mi troverò un service worker registrato all'avvio della mia applicazione",
+      "line": 3,
+      "selection": {
+        "start": {
+          "line": 3,
+          "character": 31
+        },
+        "end": {
+          "line": 3,
+          "character": 49
+        }
+      }
+    },
+    {
+      "file": "src/app.html",
+      "description": "Dopo aver creato il `manifest.json` nella cartella static e aggiunto l'apposito tag nel template di base",
+      "line": 7
+    },
+    {
+      "file": "src/routes/index.svelte",
+      "description": "Posso mostrare il pulsante A2HS e avere una bella PWA offline ready!",
+      "line": 132
+    }
+  ],
+  "ref": "7df9ccb798635cae9b6ef918c10744722aeb92ec"
+}

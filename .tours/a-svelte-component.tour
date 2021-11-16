@@ -1,0 +1,22 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "1. A Svelte Component",
+  "steps": [
+    {
+      "file": "src/routes/index.svelte",
+      "description": "Qui va la parte di codice JS e lo scope delel variabili è condiviso con il resto del componente",
+      "line": 7
+    },
+    {
+      "file": "src/routes/index.svelte",
+      "description": "Le `key` vengono definite direttamente nello statement del loop ed è possibile utilizzare anche il riferimento dell'oggetto",
+      "line": 21
+    },
+    {
+      "file": "src/routes/index.svelte",
+      "description": "Gli stili definiti nel componente sono visibili solo all'interno dello stesso ",
+      "line": 28
+    }
+  ],
+  "ref": "2a370d7940b253c810bda2c52e70f7e0677855de"
+}

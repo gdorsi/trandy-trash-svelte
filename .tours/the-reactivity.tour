@@ -1,0 +1,32 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "2. The Reactivity",
+  "steps": [
+    {
+      "file": "src/routes/index.svelte",
+      "description": "Lo state in Svelte è rappresentato da semplici variabili mutabili",
+      "line": 9
+    },
+    {
+      "file": "src/routes/index.svelte",
+      "description": "Il tag `<script>` viene eseguito solo al caricamento del componente ma con `$:` è possibile definire dei \"Reactive statement\" che verranno eseguiti ogni volta che lo stato utilizzato nello statement cambia",
+      "line": 16
+    },
+    {
+      "file": "src/routes/index.svelte",
+      "description": "L'aggiornamento dello stato è completamente gestito dal compilatore, l'unica cosa di cui tener conto è che la modifica della variabile sia visibile nel file `.svelte`",
+      "line": 41
+    },
+    {
+      "file": "src/routes/index.svelte",
+      "description": "Composizione di classi",
+      "line": 58
+    },
+    {
+      "file": "src/routes/index.svelte",
+      "description": "Event listeners",
+      "line": 59
+    }
+  ],
+  "ref": "194d5a3934e1587998141f405e27ccc34aa5f632"
+}

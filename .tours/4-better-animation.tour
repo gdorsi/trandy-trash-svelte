@@ -1,0 +1,12 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "4. Better Animations",
+  "steps": [
+    {
+      "file": "src/routes/index.svelte",
+      "description": "E con un pò di tweak il risultato inizia ad essere un pò più gradevole",
+      "line": 75
+    }
+  ],
+  "ref": "7de333f7466e8dc2b8e2ba10e9badadbcf2c602f"
+}

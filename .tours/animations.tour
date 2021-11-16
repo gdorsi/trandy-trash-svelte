@@ -1,0 +1,17 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "3. Animations",
+  "steps": [
+    {
+      "file": "src/routes/index.svelte",
+      "description": "Svelte ha una serie di moduli built in per gestire le animazioni",
+      "line": 4
+    },
+    {
+      "file": "src/routes/index.svelte",
+      "description": "E con queste `directives` è possibile animare \"automaticamente\" il nostro HTML",
+      "line": 62
+    }
+  ],
+  "ref": "88d0a78006ea3089c749a7bb587d1106395c50ad"
+}
