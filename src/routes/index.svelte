@@ -3,14 +3,19 @@
 	import { flip } from 'svelte/animate';
 	import { sineIn } from 'svelte/easing';
 	import { fly, fade } from 'svelte/transition';
+	import { tweened } from 'svelte/motion';
 
 	const GRID_SIZE = 8;
 
 	let grid = generateGrid(GRID_SIZE);
 	let selected = null;
 	let validMoves = [];
-	// What's a game without a score?
 	let score = 0;
+
+	// Let's add some motion
+	const displayedScore = tweened();
+
+	$: displayedScore.set(score);
 
 	$: if (selected !== null) {
 		validMoves = getValidMoves(grid, selected);
@@ -69,7 +74,8 @@
 <h1>✨ Trandy Trash ✨</h1>
 
 <h2>
-	Score: <span class="bulletin">{Math.floor(score)}</span>
+	<!-- Wait what's that $??? -->
+	Score: <span class="bulletin">{Math.floor($displayedScore)}</span>
 </h2>
 
 <div class="grid" style="--size: {GRID_SIZE}">
