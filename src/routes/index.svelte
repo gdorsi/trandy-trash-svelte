@@ -1,14 +1,14 @@
 <script>
 	import { generateGrid, getCombo, replaceItems, getValidMoves } from '$lib/game';
+	import { flip } from 'svelte/animate';
+	import { fly, fade } from 'svelte/transition';
 
 	const GRID_SIZE = 8;
 
-	// state
 	let grid = generateGrid(GRID_SIZE);
 	let selected = null;
 	let validMoves = [];
 
-	// reactive statement!
 	$: if (selected !== null) {
 		validMoves = getValidMoves(grid, selected);
 	} else {
@@ -21,7 +21,6 @@
 		if (combo.length) {
 			grid = replaceItems(grid, combo);
 
-			// the streak continues?
 			if (getCombo(grid).length) {
 				setTimeout(processCombos, 500);
 			}
@@ -51,12 +50,16 @@
 
 <div />
 
+<!-- built in animations! -->
 <div class="grid" style="--size: {GRID_SIZE}">
 	{#each grid as item, i (item)}
 		<div
 			class="cell"
 			class:interactive={selected === null || validMoves.includes(i)}
 			on:click={() => handleClick(i)}
+			animate:flip
+			in:fly
+			out:fade
 		>
 			{item.value}
 		</div>
