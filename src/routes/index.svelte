@@ -79,7 +79,9 @@
 		selected = null;
 		score = 0;
 		grid = generateGrid(GRID_SIZE);
-		timer.start();
+		requestAnimationFrame(() => {
+			timer.start();
+		})
 	}
 </script>
 
@@ -110,7 +112,7 @@
 			animate:flip={{ easing: sineIn, duration: animationDuration }}
 			in:fly={{
 				easing: sineIn,
-				y: flyDistance(i) * -1,
+				y: $timer ? flyDistance(i) * -1 : 0,
 				duration: animationDuration(flyDistance(i))
 			}}
 			out:fade

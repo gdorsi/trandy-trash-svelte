@@ -5,7 +5,7 @@
   "steps": [
     {
       "file": "src/routes/index.svelte",
-      "description": "Qui va la parte di codice JS e lo scope delel variabili è condiviso con il resto del componente",
+      "description": "Qui va la parte di codice JS. Lo scope delel variabili è condiviso con il resto del componente",
       "line": 7
     },
     {
